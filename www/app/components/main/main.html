@@ -1,0 +1,155 @@
+<md-content layout="column" layout-align="space-between start" style="width: 100%; height: 100%;">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+
+            <md-button class="md-icon-button md-primary" aria-label="Add" ng-click="main.toggle()">
+                <ng-md-icon icon="add"></ng-md-icon>
+            </md-button>
+
+            <div layout="row" layout-align="center" flex>
+              <p>{{ main.title }}</p>
+            </div>
+
+            <md-menu md-position-mode="target-right target">
+              <md-button aria-label="Options" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                <ng-md-icon icon="perm_contact_cal"></ng-md-icon>
+              </md-button>
+              <md-menu-content width="4" >
+                <md-menu-item ng-repeat="calendar in main.calendarList">
+                  <md-button ng-click="main.applyFilter(calendar)" aria-label="calendar.name">
+                    <div layout="row" layout-align="space-around start">
+                      <ng-md-icon icon="perm_contact_cal"></ng-md-icon>
+                      <p flex>{{ calendar.name }}</p>
+                    </div>
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+
+        </div>
+    </md-toolbar>
+
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-cloak md-no-ink="true">
+        <md-toolbar>
+            <h1 class="md-toolbar-tools">Menu</h1>
+        </md-toolbar>
+        <md-content layout="column" layout-align="space-between start">
+            <div layout="row" layout-align="space-around start">
+              <md-menu>
+                <md-button aria-label="Options" ng-click="$mdOpenMenu($event)">
+                  <div layout="row" layout-align="space-between start" style="margin-left: -0.4em;">
+                    <ng-md-icon icon="perm_contact_cal" style="fill: gray"></ng-md-icon>
+                    <p id="btn"> {{ main.selectedCalendar.name }} <span style="color: #F44336;">*</span></p>
+                  </div>
+                </md-button>
+                <md-menu-content width="4" >
+                  <md-menu-item ng-click="main.applySelection(email)" ng-repeat="email in main.selectionCalendar">
+                    <md-button aria-label="email.name">
+                      <div layout="row" layout-align="space-around start">
+                        <p flex>{{ email.name }}</p>
+                      </div>
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </div>
+            <div><md-datepicker ng-model="main.pickedDate" md-placeholder="Selecione a Data" style="margin-left: -0.8em;"></md-datepicker><span style="color: #F44336;"> *</span></div>
+            <div layout="column" layout-align="space-around start" style="margin-left: 1em; margin-top: 1em;">
+                <p>Hora inicial:</p>
+                <div layout="row" layout-align="start center" style="margin-top:-20px;">
+                    <div layout="column" layout-align="center center" >
+                        <md-button class="md-icon-button md-primary" aria-label="Plus Hour" ng-click="main.upInitHour()">
+                            <ng-md-icon icon="keyboard_arrow_up" size="20"></ng-md-icon>
+                        </md-button>
+                        <span style="font-size:20px;margin-top:-15px;margin-bottom:-10px;margin-left:-5px;">{{ main.inicHora }}</span>
+                        <md-button class="md-icon-button md-primary" aria-label="Less Hour" ng-click="main.downInitHour()">
+                            <ng-md-icon icon="keyboard_arrow_down" size="20"></ng-md-icon>
+                        </md-button>
+                    </div>
+                    <span style="font-size:20px; margin-bottom:7px;">:</span>
+                    <div layout="column" layout-align="center center">
+                        <md-button class="md-icon-button md-primary" aria-label="Plus Minute" ng-click="main.upInitMinute()">
+                            <ng-md-icon icon="keyboard_arrow_up" size="20"></ng-md-icon>
+                        </md-button>
+                        <span style="font-size:20px;margin-top:-15px;margin-bottom:-10px;margin-left:-5px;">{{ main.inicMinuto }}</span>
+                        <md-button class="md-icon-button md-primary" aria-label="Less Minute" ng-click="main.downInitMinute()">
+                            <ng-md-icon icon="keyboard_arrow_down" size="20"></ng-md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <p>Hora final: </p>
+                <div layout="row" layout-align="center center" style="margin-top:-20px;">
+                    <div layout="column" layout-align="center center">
+                        <md-button class="md-icon-button md-primary" aria-label="Plus Hour" ng-click="main.upFinalHour()">
+                            <ng-md-icon icon="keyboard_arrow_up" size="20"></ng-md-icon>
+                        </md-button>
+                        <span style="font-size:20px;margin-top:-15px;margin-bottom:-10px;margin-left:-5px;">{{ main.finalHora }}</span>
+                        <md-button class="md-icon-button md-primary" aria-label="Less Hour" ng-click="main.downFinalHour()">
+                            <ng-md-icon icon="keyboard_arrow_down" size="20"></ng-md-icon>
+                        </md-button>
+                    </div>
+                    <span style="font-size:20px; margin-bottom:7px;">:</span>
+                    <div layout="column" layout-align="center center">
+                        <md-button class="md-icon-button md-primary" aria-label="Plus Minute" ng-click="main.upFinalMinute()">
+                            <ng-md-icon icon="keyboard_arrow_up" size="20"></ng-md-icon>
+                        </md-button>
+                        <span style="font-size:20px;margin-top:-15px;margin-bottom:-10px;margin-left:-5px;">{{ main.finalMinuto }}</span>
+                        <md-button class="md-icon-button md-primary" aria-label="Less Minute" ng-click="main.downFinalMinute()">
+                            <ng-md-icon icon="keyboard_arrow_down" size="20"></ng-md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <md-input-container>
+                    <label>Nome do Evento: <span style="color: #F44336;">*</span> </label>
+                    <input ng-model="main.name" type="text">
+                </md-input-container>
+                <md-input-container>
+                    <label>Local do Evento:</label>
+                    <input ng-model="main.location" type="text">
+                </md-input-container>
+                <md-input-container>
+                    <label>Notas do Evento:</label>
+                    <input ng-model="main.notes" type="text">
+                </md-input-container>
+            </div>
+            <md-button ng-click="main.saveEvent()" class="md-primary">
+                <p>Criar Evento</p>
+            </md-button>
+        </md-content>
+    </md-sidenav>
+
+
+    <md-list flex style="width: 100%;">
+        <md-list-item class="md-2-line" ng-click="main.showDetail($event, event)" ng-repeat="event in main.allEvents">
+            <div class="md-list-item-text">
+                <h3 style="line-height: 20px;">{{ event.title }}</h3>
+                <p>{{ event.startDate }}</p>
+            </div>
+
+            <md-menu md-position-mode="target-right target">
+              <md-button aria-label="Options" class="md-icon-button" ng-click="$mdOpenMenu($event)" style="margin-right: -0.5em;">
+                <ng-md-icon icon="more_vert"></ng-md-icon>
+              </md-button>
+              <md-menu-content width="2">
+                <md-menu-item>
+                  <md-button ng-click="main.editEvent(event)" aria-label="Edit">
+                    <div layout="row" layout-align="space-around start">
+                      <ng-md-icon icon="create"></ng-md-icon>
+                      <p flex>Editar</p>
+                    </div>
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-click="main.deleteEvent(event)" aria-label="Delete">
+                    <div layout="row" layout-align="space-around start">
+                      <ng-md-icon icon="clear"></ng-md-icon>
+                      <p flex>Excluir</p>
+                    </div>
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+        </md-list-item>
+    </md-list>
+
+</md-content>

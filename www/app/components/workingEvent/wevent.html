@@ -1,0 +1,84 @@
+<md-content layout="column" layout-align="space-between start" style="width: 100%; height: 100%;">
+  <md-toolbar>
+    <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+
+      <md-button class="md-icon-button md-primary" aria-label="Add" ng-click="edit.save()">
+        <ng-md-icon icon="done"></ng-md-icon>
+      </md-button>
+
+      <div layout="row" layout-align="center" flex>
+        <p>{{ edit.title }}</p>
+      </div>
+
+      <md-button class="md-icon-button md-primary" aria-label="Add" ng-click="edit.cancel()">
+        <ng-md-icon icon="clear"></ng-md-icon>
+      </md-button>
+
+    </div>
+  </md-toolbar>
+
+  <md-datepicker ng-model="edit.pickedDate" md-placeholder="Selecione a Data" style="margin-left: -0.8em;"></md-datepicker>
+
+  <p>Hora inicial:</p>
+  <div layout="row" layout-align="start center" style="margin-top:-20px;">
+      <div layout="column" layout-align="center center" >
+          <md-button class="md-icon-button md-primary" aria-label="Plus Hour" ng-click="edit.upInitHour()">
+              <ng-md-icon icon="keyboard_arrow_up" size="20"></ng-md-icon>
+          </md-button>
+          <span style="font-size:20px;margin-top:-15px;margin-bottom:-10px;margin-left:-5px;">{{ edit.inicHora }}</span>
+          <md-button class="md-icon-button md-primary" aria-label="Less Hour" ng-click="edit.downInitHour()">
+              <ng-md-icon icon="keyboard_arrow_down" size="20"></ng-md-icon>
+          </md-button>
+      </div>
+      <span style="font-size:20px; margin-bottom:7px;">:</span>
+      <div layout="column" layout-align="center center">
+          <md-button class="md-icon-button md-primary" aria-label="Plus Minute" ng-click="edit.upInitMinute()">
+              <ng-md-icon icon="keyboard_arrow_up" size="20"></ng-md-icon>
+          </md-button>
+          <span style="font-size:20px;margin-top:-15px;margin-bottom:-10px;margin-left:-5px;">{{ edit.inicMinuto }}</span>
+          <md-button class="md-icon-button md-primary" aria-label="Less Minute" ng-click="edit.downInitMinute()">
+              <ng-md-icon icon="keyboard_arrow_down" size="20"></ng-md-icon>
+          </md-button>
+      </div>
+  </div>
+  <p>Hora final: </p>
+  <div layout="row" layout-align="center center" style="margin-top:-20px;">
+      <div layout="column" layout-align="center center">
+          <md-button class="md-icon-button md-primary" aria-label="Plus Hour" ng-click="edit.upFinalHour()">
+              <ng-md-icon icon="keyboard_arrow_up" size="20"></ng-md-icon>
+          </md-button>
+          <span style="font-size:20px;margin-top:-15px;margin-bottom:-10px;margin-left:-5px;">{{ edit.finalHora }}</span>
+          <md-button class="md-icon-button md-primary" aria-label="Less Hour" ng-click="edit.downFinalHour()">
+              <ng-md-icon icon="keyboard_arrow_down" size="20"></ng-md-icon>
+          </md-button>
+      </div>
+      <span style="font-size:20px; margin-bottom:7px;">:</span>
+      <div layout="column" layout-align="center center">
+          <md-button class="md-icon-button md-primary" aria-label="Plus Minute" ng-click="edit.upFinalMinute()">
+              <ng-md-icon icon="keyboard_arrow_up" size="20"></ng-md-icon>
+          </md-button>
+          <span style="font-size:20px;margin-top:-15px;margin-bottom:-10px;margin-left:-5px;">{{ edit.finalMinuto }}</span>
+          <md-button class="md-icon-button md-primary" aria-label="Less Minute" ng-click="edit.downFinalMinute()">
+              <ng-md-icon icon="keyboard_arrow_down" size="20"></ng-md-icon>
+          </md-button>
+      </div>
+  </div>
+
+  <p>Nome do Evento:</p>
+  <md-input-container>
+      <label>{{ edit.name }}</label>
+      <input ng-model="edit.name" type="text">
+  </md-input-container>
+
+  <p>Local do Evento:</p>
+  <md-input-container>
+      <label>{{ edit.location }}</label>
+      <input ng-model="edit.location" type="text">
+  </md-input-container>
+
+  <p>Notas do Evento:</p>
+  <md-input-container>
+      <label>{{ edit.message }}</label>
+      <input ng-model="edit.message" type="text">
+  </md-input-container>
+</md-content>

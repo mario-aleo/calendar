@@ -1,0 +1,73 @@
+<md-content layout="column" layout-align="space-between start" style="width: 100%; height: 100%;">
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+
+            <md-button class="md-icon-button md-primary" aria-label="Add" ng-click="main.toggle()">
+                <ng-md-icon icon="add"></ng-md-icon>
+            </md-button>
+            
+            <p>{{ main.title }}</p>
+            
+            <md-button class="md-icon-button md-primary" aria-label="Back" ng-disable="true">
+            </md-button>
+            
+        </div>
+    </md-toolbar>
+
+    
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+        <md-toolbar>
+            <h1 class="md-toolbar-tools">Menu</h1>
+        </md-toolbar>
+        <md-content layout="column" layout-align="space-around start">
+            <md-datepicker ng-model="main.pickedDate" md-placeholder="Selecione a Data" required></md-datepicker>
+            <div layout="column" layout-align="space-around start" style="margin-left: 1em;">
+                <div>
+                    <p>Hora inicial:</p>
+                    
+                </div>
+                <p>Hora final:</p>
+                <div layout="row">
+                    <div layout="column">
+                        <md-button class="md-icon-button md-primary" aria-label="Plus Hour" ng-click="main.upHour()">
+                            <ng-md-icon icon="keyboard_arrow_up" size="20"></ng-md-icon>
+                        </md-button>
+                        <span>{{ main.hora }}</span>
+                        <md-button class="md-icon-button md-primary" aria-label="Less Hour" ng-click="main.downHour()">
+                            <ng-md-icon icon="keyboard_arrow_down" size="20"></ng-md-icon>
+                        </md-button>
+                    </div>
+                    <div layout="column">
+                        <md-button class="md-icon-button md-primary" aria-label="Plus Minute" ng-click="main.upMinute()">
+                            <ng-md-icon icon="keyboard_arrow_up" size="20"></ng-md-icon>
+                        </md-button>
+                        <span>{{ main.minuto }}</span>
+                        <md-button class="md-icon-button md-primary" aria-label="Less Minute" ng-click="main.downMinute()">
+                            <ng-md-icon icon="keyboard_arrow_down" size="20"></ng-md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <md-input-container>
+                    <label>Nome do Evento:</label>
+                    <input ng-model="main.name" type="text" required>
+                </md-input-container>
+                <md-input-container>
+                    <label>Local do Evento:</label>
+                    <input ng-model="main.location" type="text" required>
+                </md-input-container>
+                <md-input-container>
+                    <label>Notas do Evento:</label>
+                    <input ng-model="main.notes" type="text" required>
+                </md-input-container>
+            </div>
+            <md-button ng-click="main.saveEvent()" class="md-primary">
+                <p>Adicionar</p>
+            </md-button>
+        </md-content>
+    </md-sidenav>
+    
+    {{ main.day }}
+    {{ main.month }}
+    {{ main.year }}
+    
+</md-content>
