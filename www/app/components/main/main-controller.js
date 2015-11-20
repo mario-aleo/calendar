@@ -5,51 +5,37 @@ angular.module("ngapp").controller("MainController", function(shared, $state, $s
   // Start Variables
     var ctrl = this;
 
+    var okMade = 0;
 
     ctrl.inicHora = 12;
 
-
     ctrl.inicMinuto = '0' + 0;
-
 
     ctrl.finalHora = 12;
 
-
     ctrl.finalMinuto = '0' + 0;
-
 
     ctrl.pickedDate = null;
 
-
     ctrl.name = null;
-
 
     ctrl.location = null;
 
-
     ctrl.notes = null;
-
 
     ctrl.selectedCalendar = {id: null, name: "Selecione um Calendario"};
 
-
     ctrl.filter = shared.eventsCalendar.filter;
-
 
     ctrl.calendarList = [];
 
-
     ctrl.selectionCalendar = [];
-
 
     ctrl.eventList = [];
 
-
     ctrl.allEvents = [];
 
-
     ctrl.toggle = angular.noop;
-
 
     ctrl.i = 1;
   // End Variables
@@ -127,8 +113,8 @@ angular.module("ngapp").controller("MainController", function(shared, $state, $s
         ctrl.loadList();
     }, false);
 
-
     $scope.$watch("Ok", function(){
+      if(okMade == 0){
         var lgn = ctrl.calendarList.length - 1;
         for(var i = 0; i < lgn; i++){
           var name = ctrl.calendarList[i].name.split("");
@@ -138,12 +124,11 @@ angular.module("ngapp").controller("MainController", function(shared, $state, $s
             }
           }
         }
-        $scope.$apply();
+        okMade = 1;
+      }
     }, true);
 
-
     ctrl.saveEvent = function(){
-
         if(ctrl.pickedDate == null || ctrl.name == null || ctrl.selectedCalendar.id == null){
           $mdDialog.show(
             $mdDialog.alert()
@@ -157,7 +142,6 @@ angular.module("ngapp").controller("MainController", function(shared, $state, $s
           );
           return;
         }
-
         if(parseInt(ctrl.inicHora) > parseInt(ctrl.finalHora)){
           $mdDialog.show(
             $mdDialog.alert()
@@ -231,7 +215,6 @@ angular.module("ngapp").controller("MainController", function(shared, $state, $s
     };
 
     ctrl.deleteEvent = function(event){
-
       if($cordovaDevice.getPlatform() == 'Android'){
         for(var i = 0; i < ctrl.selectionCalendar.length; i++){
           if(event.calendarId == ctrl.selectionCalendar[i].id){
@@ -529,13 +512,11 @@ angular.module("ngapp").controller("MainController", function(shared, $state, $s
       ctrl.toggle = angular.bind( sideNav, sideNav.toggle );
     });
 
-
     ctrl.toggleRight = function() {
     $mdSidenav("left").toggle()
         .then(function(){
         });
     };
-
 
     ctrl.close = function() {
     $mdSidenav("left").close()
@@ -543,6 +524,7 @@ angular.module("ngapp").controller("MainController", function(shared, $state, $s
         });
     };
   // End Toggle Bar Definition
+
 
   // Start Alert Information Definition
     ctrl.showDetail = function($event, data) {
@@ -552,10 +534,10 @@ angular.module("ngapp").controller("MainController", function(shared, $state, $s
           preserveScope: true,  // do not forget this if use parent scope
           template: '<md-dialog>'                                                                                           +
                     '  <md-dialog-content layout-fill layout-align="space-around" style="width: 20em; height: 30em;">'      +
-                    '    <md-content layout="row" layout-align="center center">'                                            +
-                    '     <h2 style="margin-bottom: 15px;">' + data.title + '</h2>'                                         +
+                    '    <md-content layout="row" layout-align="center center" style="margin: 0em 1em 0em 1em;">'           +
+                    '     <h2>' + data.title + '</h2>'                                                                      +
                     '    </md-content>'                                                                                     +
-                    '    <md-content layout="column" layout-align="space-around" style="margin-left: 1em;">'                +
+                    '    <md-content layout="column" layout-align="space-around" style="margin: 0em 1em 0em 1em;">'         +
                     '     <h4 style="margin-bottom: 5px;">Data:</h4>'                                                       +
                           data.startDate.split(" - ")[0]                                                                    +
                     '     <h4 style="margin-bottom: 5px;">Inicio:</h4>'                                                     +
@@ -563,9 +545,9 @@ angular.module("ngapp").controller("MainController", function(shared, $state, $s
                     '     <h4 style="margin-bottom: 5px;">Termino:</h4>'                                                    +
                           data.endDate.split(" - ")[1]                                                                      +
                     '     <h4 style="margin-bottom: 5px;">Local:</h4>'                                                      +
-                          data.location                                                                                +
+                          data.location                                                                                     +
                     '     <h4 style="margin-bottom: 5px;">Notas:</h4>'                                                      +
-                          data.message                                                                                +
+                          data.message                                                                                      +
                     '    </md-content>'                                                                                     +
                     '  </md-dialog-content>'                                                                                +
                     '</md-dialog>'                                                                                          ,
@@ -573,20 +555,22 @@ angular.module("ngapp").controller("MainController", function(shared, $state, $s
               $scope.closeDialog = function(){
                   $mdDialog.hide();
               };
-
           }
        });
     }
   // End Alert Information Definition
 
+
   ctrl.option = function(){
     alert("Options");
   };
 
+
   // Start Watch Route
     $scope.$watch("$state.current.title", function(){
+      if(ctrl.title != $state.current.title){
         ctrl.title = $state.current.title;
-        $scope.$apply();
+      }
     }, true);
   // End Watch Route
 
